@@ -33,26 +33,23 @@ fun Date.add(value:Int, units: TimeUnits = TimeUnits.SECOND): Date{
 
 fun Date.humanizeDiff(date: Date = Date()): String {
     var diff = Date().time - date.time
-    println("Текущая дата = ${Date().time}")
-    println("Пришла дата =  ${date.time}")
+
     diff/=1000L
     val diffMinute = diff/60%10
     val diffMinuteHead = diff/600
-    println("Остаток минут = $diffMinute")
-    println("Остаток минут голова = $diffMinuteHead")
-    println("разница времени = $diff")
+
     return when (diff){
         in 0..1 -> "только что"
         in 1..45 -> "несколько секунд назад"
         in 45..75 -> "минуту назад"
-        in 75..45*60 -> if((diffMinute>=1) && (diffMinute<=4)) "${diff/60} минуты назад" else "${diff/60} минут назад"
+        in 75..45*60 -> if((diffMinute>=2) && (diffMinute<=4)) "${diff/60} минуты назад" else
+            if ((diffMinuteHead>=2) && (diffMinuteHead<=4) && (diffMinute==1L)) "${diff/60} минуту назад" else "${diff/60} минут назад"
         in 45*60..75*60 -> "час назад"
         in 75*60..22*3600 -> "${diff/3600} часов назад"
         in 22*3600..26*3600 -> "день назад"
         in 26*3600..360*86400 -> "${diff/86400} дней назад"
         else -> "более года назад"
     }
-    return ""
 }
 
 enum class TimeUnits{
