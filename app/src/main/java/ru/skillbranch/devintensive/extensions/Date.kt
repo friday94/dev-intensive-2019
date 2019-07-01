@@ -38,6 +38,11 @@ fun Date.humanizeDiff(date: Date = Date()): String {
     val diffMinute = diff/60%10
     val diffMinuteHead = diff/600
 
+    val diffDay = diff/86400%10
+    val diffDayHead = diff/864000
+
+    println(diffDay)
+    println(diffDayHead)
     return when (diff){
         in 0..1 -> "только что"
         in 1..45 -> "несколько секунд назад"
@@ -47,7 +52,8 @@ fun Date.humanizeDiff(date: Date = Date()): String {
         in 45*60..75*60 -> "час назад"
         in 75*60..22*3600 -> "${diff/3600} часов назад"
         in 22*3600..26*3600 -> "день назад"
-        in 26*3600..360*86400 -> "${diff/86400} дней назад"
+        in 26*3600..360*86400 -> if ((diffDay>=2) && (diffDay<=4)) "${diff/86400} дня назад" else
+            if ((diffDayHead!=1L) && (diffDay<=1)) "${diff/86400} дней назад" else ""
         else -> "более года назад"
     }
 }

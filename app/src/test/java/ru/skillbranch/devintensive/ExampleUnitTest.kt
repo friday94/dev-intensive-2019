@@ -75,8 +75,8 @@ class ExampleUnitTest {
     @Test
     fun test_abstract_factory(){
         val user = User.makeUser("Конусевич Дмитрий")
-        val txtMessage = BaseMessage.makeMessage(user, Chat("0"), date = Date().add(-5,TimeUnits.MINUTE), payload = "any text message", type = "text")
-        val imgMessage = BaseMessage.makeMessage(user, Chat("0"), date = Date().add(-76,TimeUnits.SECOND), payload = "any image url", type = "image")
+        val txtMessage = BaseMessage.makeMessage(user, Chat("0"), date = Date().add(-21,TimeUnits.DAY), payload = "any text message", type = "text")
+        val imgMessage = BaseMessage.makeMessage(user, Chat("0"), date = Date(), payload = "any image url", type = "image")
 
        println(txtMessage.formatMessage())
        println(imgMessage.formatMessage())
