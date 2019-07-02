@@ -53,7 +53,7 @@ fun Date.humanizeDiff(date: Date = Date()): String {
         in 75*60..22*3600 -> "${diff/3600} часов назад"
         in 22*3600..26*3600 -> "день назад"
         in 26*3600..360*86400 -> if ((diffDay>=2) && (diffDay<=4)) "${diff/86400} дня назад" else
-            if ((diffDayHead!=1L) && (diffDay<=1)) "${diff/86400} дней назад" else ""
+            if ((diffDayHead!=1L) && (diffDay!=1L)) "${diff/86400} дней назад" else "${diff/86400} день назад"
         else -> "более года назад"
     }
 }
