@@ -30,7 +30,7 @@ class ExampleUnitTest {
     fun test_factory() {
 //        val user = User.makeUser("John Cena")
 //        val user2 = User.makeUser("John Wick")
-        val user = User.makeUser("John Wick")
+        val user = User.makeUser("John")
         val user2 = user.copy(id = "2", lastName = "Cena", lastVisit = Date())
         print("$user \n$user2")
     }
@@ -69,16 +69,30 @@ class ExampleUnitTest {
         val newUser = user.copy(lastVisit = Date().add(-800,TimeUnits.DAY))
         println(newUser)
         val userView = user.toUseView()
-
         userView.printMe()
     }
     @Test
     fun test_abstract_factory(){
         val user = User.makeUser("Конусевич Дмитрий")
-        val txtMessage = BaseMessage.makeMessage(user, Chat("0"), date = Date().add(-21,TimeUnits.DAY), payload = "any text message", type = "text")
-        val imgMessage = BaseMessage.makeMessage(user, Chat("0"), date = Date(), payload = "any image url", type = "image")
+        val txtMessage = BaseMessage.makeMessage(user, Chat("0"), date = Date().add(-22,TimeUnits.HOUR), payload = "any text message", type = "text")
+        val imgMessage = BaseMessage.makeMessage(user, Chat("0"), date = Date().add(-30,TimeUnits.SECOND), payload = "any image url", type = "image")
 
        println(txtMessage.formatMessage())
        println(imgMessage.formatMessage())
+    }
+
+    @Test
+    fun test_builder_user(){
+        val user = User.Builder()
+            .id("1")
+            .firstName("Дмитрий")
+            .lastName("Конусевич")
+            .avatar("Картинка URL")
+            .rating(5)
+            .respect(2)
+            .lastVisit(Date().add(-2,TimeUnits.DAY))
+            .isOnline(false)
+            .build()
+        println(user)
     }
 }
