@@ -160,6 +160,12 @@ object Utils {
                 else -> it.value
             }
         }
+        if ((tFirstName == null) && (tLastName == null))
+        return ""
+        if ((tFirstName != null) && (tLastName == null))
+        return "$tFirstName"
+        if ((tFirstName == null) && (tLastName != null))
+        return "$tLastName"
         return "$tFirstName$divider$tLastName"
     }
 

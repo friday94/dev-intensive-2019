@@ -34,26 +34,50 @@ fun Date.add(value:Int, units: TimeUnits = TimeUnits.SECOND): Date{
 fun Date.humanizeDiff(date: Date = Date()): String {
     var diff =  date.time - this.time
     diff/=1000L
-    val diffMinute = diff/60%10
-    val diffMinuteHead = diff/600
-    val diffHour = diff/3600%10
-    val diffHourHead = diff/36000
-    val diffDay = diff/86400%10
-    val diffDayHead = diff/864000
-
-    return when (diff){
-        in 0..1 -> "только что"
-        in 1..45 -> "несколько секунд назад"
-        in 45..75 -> "минуту назад"
-        in 75..45*60 -> if((diffMinute>=2) && (diffMinute<=4)) "${diff/60} минуты назад" else
-            if ((diffMinuteHead>=2) && (diffMinuteHead<=4) && (diffMinute==1L)) "${diff/60} минуту назад" else "${diff/60} минут назад"
-        in 45*60..75*60 -> "час назад"
-        in 75*60..22*3600 -> if ((diffHour>=2) && (diffHour<=4) && (diffHourHead!=1L)) "${diff/3600} часа назад" else
-            if (diffHourHead==1L) "${diff/3600} часов назад" else "${diff/3600} час назад"
-        in 22*3600..26*3600 -> "день назад"
-        in 26*3600..360*86400 -> if ((diffDay>=2) && (diffDay<=4)) "${diff/86400} дня назад" else
-            if ((diffDayHead!=1L) && (diffDay!=1L)) "${diff/86400} дней назад" else "${diff/86400} день назад"
-        else -> "более года назад"
+    var diffMinute = diff/60%10
+    var diffMinuteHead = diff/600
+    var diffHour = diff/3600%10
+    var diffHourHead = diff/36000
+    var diffDay = diff/86400%10
+    var diffDayHead = diff/864000
+    if (diff > 0 ) {
+        return when (diff) {
+            in 0..1 -> "только что"
+            in 1..45 -> "несколько секунд назад"
+            in 45..75 -> "минуту назад"
+            in 75..45 * 60 -> if ((diffMinute >= 2) && (diffMinute <= 4)) "${diff / 60} минуты назад" else
+                if ((diffMinuteHead >= 2) && (diffMinuteHead <= 4) && (diffMinute == 1L)) "${diff / 60} минуту назад" else "${diff / 60} минут назад"
+            in 45 * 60..75 * 60 -> "час назад"
+            in 75 * 60..22 * 3600 -> if ((diffHour >= 2) && (diffHour <= 4) && (diffHourHead != 1L)) "${diff / 3600} часа назад" else
+                if ((diffHourHead == 1L) || (diffHourHead==0L))"${diff / 3600} часов назад" else "${diff / 3600} час назад"
+            in 22 * 3600..26 * 3600 -> "день назад"
+            in 26 * 3600..360 * 86400 -> if ((diffDay >= 2) && (diffDay <= 4)) "${diff / 86400} дня назад" else
+                if ((diffDayHead != 1L) && (diffDay != 1L)) "${diff / 86400} дней назад" else "${diff / 86400} день назад"
+            else -> "более года назад"
+        }
+    }
+    else {
+        diff *=-1
+        diffMinute *= -1
+        diffMinuteHead *= -1
+        diffHour *= -1
+        diffHourHead *= -1
+        diffDay *= -1
+        diffDayHead *= -1
+        return when (diff) {
+            in 0..1 -> "только что"
+            in 1..45 -> "через несколько секунд"
+            in 45..75 -> "через минуту"
+            in 75..45 * 60 -> if ((diffMinute >= 2) && (diffMinute <= 4)) "через ${diff / 60} минуты" else
+                if ((diffMinuteHead >= 2) && (diffMinuteHead <= 4) && (diffMinute == 1L)) "через ${diff / 60} минуту" else "через ${diff / 60} минут"
+            in 45 * 60..75 * 60 -> "через час"
+            in 75 * 60..22 * 3600 -> if ((diffHour >= 2) && (diffHour <= 4) && (diffHourHead != 1L)) "через ${diff / 3600} часа" else
+                if (diffHourHead == 1L) "через ${diff / 3600} часов" else "через ${diff / 3600} час"
+            in 22 * 3600..26 * 3600 -> "через день"
+            in 26 * 3600..360 * 86400 -> if ((diffDay >= 2) && (diffDay <= 4)) "через ${diff / 86400} дня" else
+                if ((diffDayHead != 1L) && (diffDay != 1L)) "через ${diff / 86400} дней" else "через ${diff / 86400} день"
+            else -> "более чем через год"
+        }
     }
 }
 
