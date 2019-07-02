@@ -122,7 +122,6 @@ class ExampleUnitTest {
         assertEquals("более года назад", Date().add(-400, TimeUnits.DAY).humanizeDiff())
         assertEquals("более чем через год", Date().add(400, TimeUnits.DAY).humanizeDiff())
 
-
         assertEquals("через 2 минуты", Date().add(2, TimeUnits.MINUTE).humanizeDiff())
 
         assertEquals("минуту назад", Date().add(-1, TimeUnits.MINUTE).humanizeDiff())
@@ -140,10 +139,6 @@ class ExampleUnitTest {
         assertEquals("4 дня назад", Date().add(-4, TimeUnits.DAY).humanizeDiff())
         assertEquals("5 дней назад", Date().add(-5, TimeUnits.DAY).humanizeDiff())
         assertEquals("100 дней назад", Date().add(-100, TimeUnits.DAY).humanizeDiff())
-
-
-
-
 
         assertEquals("несколько секунд назад", Date().humanizeDiff(Date().add(34, TimeUnits.SECOND)))
         assertEquals("минуту назад", Date().humanizeDiff(Date().add(61, TimeUnits.SECOND)))
@@ -191,5 +186,16 @@ class ExampleUnitTest {
         assertEquals("5 дней назад", Date().add(-5, TimeUnits.DAY).humanizeDiff())
 
         assertEquals("100 дней назад", Date().add(-100, TimeUnits.DAY).humanizeDiff())
+    }
+
+    @Test
+    fun transliteration2() {
+        assertEquals("[mi mi m]i", Utils.transliteration("[ми ми м]и"))
+        assertEquals("Amazing_Petr", Utils.transliteration("Amazing Петр", "_"))
+
+        assertEquals("Zh Zh", Utils.transliteration("Ж Ж"))
+        assertEquals("ZhZh", Utils.transliteration("ЖЖ"))
+        assertEquals("AbrAKadabra", Utils.transliteration("AbrAKadabra"))
+        assertEquals("StraNNIi NikVash'e", Utils.transliteration("СтраННЫй НикВаще"))
     }
 }
