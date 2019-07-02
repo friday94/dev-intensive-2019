@@ -3,11 +3,9 @@ package ru.skillbranch.devintensive
 import org.junit.Test
 
 import org.junit.Assert.*
-import ru.skillbranch.devintensive.extensions.TimeUnits
-import ru.skillbranch.devintensive.extensions.add
-import ru.skillbranch.devintensive.extensions.format
-import ru.skillbranch.devintensive.extensions.toUseView
+import ru.skillbranch.devintensive.extensions.*
 import ru.skillbranch.devintensive.models.*
+import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
 
 /**
@@ -94,5 +92,12 @@ class ExampleUnitTest {
             .isOnline(false)
             .build()
         println(user)
+    }
+
+    @Test
+    fun test_date_humanize(){
+        println(Date().add(-2, TimeUnits.HOUR).humanizeDiff())
+        println(Date().add(2, TimeUnits.HOUR).humanizeDiff())
+        println(Utils.transliteration("Amazing Петр","_"))
     }
 }

@@ -160,8 +160,6 @@ object Utils {
                 else -> it.value
             }
         }
-        println("Имя = $tFirstName Фамилия = $tLastName")
-
         return "$tFirstName$divider$tLastName"
     }
 

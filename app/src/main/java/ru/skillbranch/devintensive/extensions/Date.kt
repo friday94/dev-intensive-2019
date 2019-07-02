@@ -32,7 +32,7 @@ fun Date.add(value:Int, units: TimeUnits = TimeUnits.SECOND): Date{
 
 
 fun Date.humanizeDiff(date: Date = Date()): String {
-    var diff = Date().time - date.time
+    var diff =  date.time - this.time
     diff/=1000L
     val diffMinute = diff/60%10
     val diffMinuteHead = diff/600
