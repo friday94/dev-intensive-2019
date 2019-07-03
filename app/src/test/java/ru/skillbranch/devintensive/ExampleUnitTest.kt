@@ -243,4 +243,13 @@ class ExampleUnitTest {
         assertEquals("21 день", TimeUnits.DAY.plural(21))
         assertEquals("22 дня", TimeUnits.DAY.plural(22))
     }
+
+    @Test
+    fun test_truncate(){
+        println("Bender Bending Rodriguez — дословно «Сгибальщик Сгибающий Родригес»".truncate())
+        println("Bender Bending Rodriguez — дословно «Сгибальщик Сгибающий Родригес»".truncate(14))
+    }
 }
+
+
+//&amp;|&lt;|&gt;|&#39;|&quot; - это escape последовательности для html символов
