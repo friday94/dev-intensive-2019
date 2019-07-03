@@ -81,6 +81,29 @@ fun Date.humanizeDiff(date: Date = Date()): String {
     }
 }
 
+fun TimeUnits.plural(value: Int): String{
+    val temp: Int = if (value >100) value%100 else value
+    when (this){
+        TimeUnits.SECOND -> {
+            return if ((temp%10>=2) && (temp%10<=4)) "$value секунды" else
+                if ((temp%10==1) && (temp/10!=1)) "$value секунда" else "$value секунд"
+        }
+        TimeUnits.MINUTE -> {
+            return if ((temp%10>=2) && (temp%10<=4)) "$value минуты" else
+                if ((temp%10==1) && (temp/10!=1)) "$value минута" else "$value минут"
+        }
+        TimeUnits.HOUR -> {
+            return if ((temp%10>=2) && (temp%10<=4)) "$value часа" else
+                if ((temp%10==1) && (temp/10!=1)) "$value час" else "$value часов"
+        }
+        TimeUnits.DAY -> {
+            return if ((temp%10>=2) && (temp%10<=4)) "$value дня" else
+                if ((temp%10==1) && (temp/10!=1)) "$value день" else "$value дней"
+        }
+    }
+}
+
+
 enum class TimeUnits{
     SECOND,
     MINUTE,

@@ -34,53 +34,68 @@ class ExampleUnitTest {
     }
 
     @Test
-    fun test_decomposition(){
+    fun test_decomposition() {
         val user = User.makeUser("John Wick")
 
         fun getUserInfo() = user
 
         val (id, firstName, lastName) = getUserInfo()
 
-        println( "$id, $firstName, $lastName")
-        println( "${user.component1()}, ${user.component2()}, ${user.component3()}")
+        println("$id, $firstName, $lastName")
+        println("${user.component1()}, ${user.component2()}, ${user.component3()}")
     }
 
     @Test
-    fun test_copy(){
+    fun test_copy() {
         val user = User.makeUser("John Wick")
         var user2 = user.copy(lastVisit = Date())
-        var user3 = user.copy(lastVisit = Date().add(-2,TimeUnits.SECOND))
-        var user4 = user.copy(lastName = "Cena", lastVisit = Date().add(2,TimeUnits.HOUR))
+        var user3 = user.copy(lastVisit = Date().add(-2, TimeUnits.SECOND))
+        var user4 = user.copy(lastName = "Cena", lastVisit = Date().add(2, TimeUnits.HOUR))
 
-        println("""
+        println(
+            """
             ${user.lastVisit?.format()}
             ${user2.lastVisit?.format()}
             ${user3.lastVisit?.format()}
             ${user4.lastVisit?.format()}
-        """.trimIndent())
+        """.trimIndent()
+        )
 
     }
 
     @Test
-    fun test_dataq_maping(){
+    fun test_dataq_maping() {
         val user = User.makeUser("Конусевич Дмитрий")
-        val newUser = user.copy(lastVisit = Date().add(-800,TimeUnits.DAY))
+        val newUser = user.copy(lastVisit = Date().add(-800, TimeUnits.DAY))
         println(newUser)
         val userView = user.toUseView()
         userView.printMe()
     }
-    @Test
-    fun test_abstract_factory(){
-        val user = User.makeUser("Конусевич Дмитрий")
-        val txtMessage = BaseMessage.makeMessage(user, Chat("0"), date = Date().add(-22,TimeUnits.HOUR), payload = "any text message", type = "text")
-        val imgMessage = BaseMessage.makeMessage(user, Chat("0"), date = Date().add(-30,TimeUnits.SECOND), payload = "any image url", type = "image")
 
-       println(txtMessage.formatMessage())
-       println(imgMessage.formatMessage())
+    @Test
+    fun test_abstract_factory() {
+        val user = User.makeUser("Конусевич Дмитрий")
+        val txtMessage = BaseMessage.makeMessage(
+            user,
+            Chat("0"),
+            date = Date().add(-22, TimeUnits.HOUR),
+            payload = "any text message",
+            type = "text"
+        )
+        val imgMessage = BaseMessage.makeMessage(
+            user,
+            Chat("0"),
+            date = Date().add(-30, TimeUnits.SECOND),
+            payload = "any image url",
+            type = "image"
+        )
+
+        println(txtMessage.formatMessage())
+        println(imgMessage.formatMessage())
     }
 
     @Test
-    fun test_builder_user(){
+    fun test_builder_user() {
         val user = User.Builder()
             .id("1")
             .firstName("Дмитрий")
@@ -88,17 +103,17 @@ class ExampleUnitTest {
             .avatar("Картинка URL")
             .rating(5)
             .respect(2)
-            .lastVisit(Date().add(-2,TimeUnits.DAY))
+            .lastVisit(Date().add(-2, TimeUnits.DAY))
             .isOnline(false)
             .build()
         println(user)
     }
 
     @Test
-    fun test_date_humanize(){
+    fun test_date_humanize() {
         println(Date().add(-5, TimeUnits.HOUR).humanizeDiff())
         println(Date().add(2, TimeUnits.HOUR).humanizeDiff())
-        println(Utils.transliteration("Amazing Петр","_"))
+        println(Utils.transliteration("Amazing Петр", "_"))
     }
 
     @Test
@@ -184,7 +199,6 @@ class ExampleUnitTest {
         assertEquals("день назад", Date().add(-1, TimeUnits.DAY).humanizeDiff())
         assertEquals("4 дня назад", Date().add(-4, TimeUnits.DAY).humanizeDiff())
         assertEquals("5 дней назад", Date().add(-5, TimeUnits.DAY).humanizeDiff())
-
         assertEquals("100 дней назад", Date().add(-100, TimeUnits.DAY).humanizeDiff())
     }
 
@@ -197,5 +211,36 @@ class ExampleUnitTest {
         assertEquals("ZhZh", Utils.transliteration("ЖЖ"))
         assertEquals("AbrAKadabra", Utils.transliteration("AbrAKadabra"))
         assertEquals("StraNNIi NikVash'e", Utils.transliteration("СтраННЫй НикВаще"))
+    }
+    @Test
+    fun test_plural(){
+        assertEquals("1 секунда", TimeUnits.SECOND.plural(1))
+        assertEquals("2 секунды", TimeUnits.SECOND.plural(2))
+        assertEquals("5 секунд", TimeUnits.SECOND.plural(5))
+        assertEquals("11 секунд", TimeUnits.SECOND.plural(11))
+        assertEquals("21 секунда", TimeUnits.SECOND.plural(21))
+        assertEquals("22 секунды", TimeUnits.SECOND.plural(22))
+        assertEquals("111 секунд", TimeUnits.SECOND.plural(111))
+
+        assertEquals("1 минута", TimeUnits.MINUTE.plural(1))
+        assertEquals("2 минуты", TimeUnits.MINUTE.plural(2))
+        assertEquals("5 минут", TimeUnits.MINUTE.plural(5))
+        assertEquals("11 минут", TimeUnits.MINUTE.plural(11))
+        assertEquals("21 минута", TimeUnits.MINUTE.plural(21))
+        assertEquals("22 минуты", TimeUnits.MINUTE.plural(22))
+
+        assertEquals("1 час", TimeUnits.HOUR.plural(1))
+        assertEquals("2 часа", TimeUnits.HOUR.plural(2))
+        assertEquals("5 часов", TimeUnits.HOUR.plural(5))
+        assertEquals("11 часов", TimeUnits.HOUR.plural(11))
+        assertEquals("21 час", TimeUnits.HOUR.plural(21))
+        assertEquals("22 часа", TimeUnits.HOUR.plural(22))
+
+        assertEquals("1 день", TimeUnits.DAY.plural(1))
+        assertEquals("2 дня", TimeUnits.DAY.plural(2))
+        assertEquals("5 дней", TimeUnits.DAY.plural(5))
+        assertEquals("11 дней", TimeUnits.DAY.plural(11))
+        assertEquals("21 день", TimeUnits.DAY.plural(21))
+        assertEquals("22 дня", TimeUnits.DAY.plural(22))
     }
 }

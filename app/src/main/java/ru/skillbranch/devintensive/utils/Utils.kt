@@ -87,7 +87,7 @@ object Utils {
                 else -> it.value
             }
         }
-        return "$tFirstName"
+        return tFirstName
     }
 
     fun toInitials(firstName: String?, lastName: String?): String? {
