@@ -13,10 +13,15 @@ fun String.truncate(count: Int = 16):String{
 }
 
 fun String.stripHtml():String{
-    var stringBuffer: String = this.trim()
-    stringBuffer = stringBuffer.substringAfter("<")
-    stringBuffer = stringBuffer.substringAfter(">")
-    stringBuffer = stringBuffer.substringBefore("<")
+    var stringBuffer: String = this
+
+    stringBuffer = stringBuffer.replace("<(.*?)>".toRegex(),"")
+    stringBuffer = stringBuffer.replace("&amp;","")
+    stringBuffer = stringBuffer.replace("&lt;","")
+    stringBuffer = stringBuffer.replace("&gt;","")
+    stringBuffer = stringBuffer.replace("&#39;","")
+    stringBuffer = stringBuffer.replace("&quot;","")
+//    stringBuffer = stringBuffer.replace("\\s+".toRegex()," ")
     while (stringBuffer.contains("  ")){
         stringBuffer = stringBuffer.replace("  "," ")
     }

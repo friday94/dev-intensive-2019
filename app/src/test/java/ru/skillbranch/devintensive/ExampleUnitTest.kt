@@ -257,6 +257,33 @@ class ExampleUnitTest {
         println("\"<p class=\"title\">Образовательное IT-сообщество Skill Branch</p>\"".stripHtml())
         println("\"<p>Образовательное       IT-сообщество Skill Branch</p>\"".stripHtml())
     }
+
+
+    @Test
+    fun stripHtmlTest() {
+        /* skillBranch tests */
+        assertEquals("Образовательное IT-сообщество Skill Branch",
+            "<p class=\"title\">Образовательное IT-сообщество Skill Branch</p>".stripHtml())
+        assertEquals("Образовательное IT-сообщество Skill Branch",
+            "<p>Образовательное       IT-сообщество Skill Branch</p>".stripHtml())
+        /* additional tests */
+        assertEquals("single", "&amp;&lt;&gt;single&#39;&quot;".stripHtml())
+        assertEquals("", "&amp;&lt;&gt;&#39;&quot;".stripHtml())
+        assertEquals(" ", "&amp;&lt;&gt;    &#39;&quot;".stripHtml())
+        assertEquals("1978", "<path fill=\"Color\" d=\"M11.63 10z\"></svg><span>1978</span>".stripHtml())
+        assertEquals("", "&gt;<head>&#39;&quot;</head>".stripHtml())
+        assertEquals(" ", "&gt;<head> &quot; </head>".stripHtml())
+        assertEquals("&игра; amp lt &gt 39; meters ()quot;", "&игра; amp lt &gt 39; meters ()quot;".stripHtml())
+        assertEquals(" one two ", "  one   two ".stripHtml())
+        assertEquals("null", "null".stripHtml())
+        val longHtml = """
+            <TD valign="top" style="padding-bottom:15px;"> <b>line1<b> </TD>
+            <TD valign="top"> <span class="HeadTitleNews"> line2</span>
+            <img src='http://2011WaterpoloF.jpg' >
+            <div style="margin: 0in 0in 0pt">line3</div>
+        """.trimIndent()
+        assertEquals(" line1 \n line2\n\nline3", longHtml.stripHtml())
+    }
 }
 
 //&amp;|&lt;|&gt;|&#39;|&quot; - это escape последовательности для html символов
