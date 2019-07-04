@@ -1,7 +1,5 @@
 package ru.skillbranch.devintensive.utils
 
-import kotlin.math.ln
-
 object Utils {
     fun parseFullName(fullName: String?): Pair<String?, String?> {
         val parts: List<String>? = fullName?.split(" ")
@@ -13,7 +11,7 @@ object Utils {
     }
 
     fun transliteration(payload: String, divider: String = " "): String {
-        val tFirstName = payload?.replace(
+        return payload.replace(
             Regex("[абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ ]")
         ) {
             when (it.value) {
@@ -87,7 +85,6 @@ object Utils {
                 else -> it.value
             }
         }
-        return tFirstName
     }
 
     fun toInitials(firstName: String?, lastName: String?): String? {

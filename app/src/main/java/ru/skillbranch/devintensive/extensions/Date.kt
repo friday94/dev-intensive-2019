@@ -86,11 +86,11 @@ fun TimeUnits.plural(value: Int): String{
     when (this){
         TimeUnits.SECOND -> {
             return if ((temp%10>=2) && (temp%10<=4)) "$value секунды" else
-                if ((temp%10==1) && (temp/10!=1)) "$value секунда" else "$value секунд"
+                if ((temp%10==1) && (temp/10!=1)) "$value секунду" else "$value секунд"
         }
         TimeUnits.MINUTE -> {
             return if ((temp%10>=2) && (temp%10<=4)) "$value минуты" else
-                if ((temp%10==1) && (temp/10!=1)) "$value минута" else "$value минут"
+                if ((temp%10==1) && (temp/10!=1)) "$value минуту" else "$value минут"
         }
         TimeUnits.HOUR -> {
             return if ((temp%10>=2) && (temp%10<=4)) "$value часа" else

@@ -214,19 +214,19 @@ class ExampleUnitTest {
     }
     @Test
     fun test_plural(){
-        assertEquals("1 секунда", TimeUnits.SECOND.plural(1))
+        assertEquals("1 секунду", TimeUnits.SECOND.plural(1))
         assertEquals("2 секунды", TimeUnits.SECOND.plural(2))
         assertEquals("5 секунд", TimeUnits.SECOND.plural(5))
         assertEquals("11 секунд", TimeUnits.SECOND.plural(11))
-        assertEquals("21 секунда", TimeUnits.SECOND.plural(21))
+        assertEquals("21 секунду", TimeUnits.SECOND.plural(21))
         assertEquals("22 секунды", TimeUnits.SECOND.plural(22))
         assertEquals("111 секунд", TimeUnits.SECOND.plural(111))
 
-        assertEquals("1 минута", TimeUnits.MINUTE.plural(1))
+        assertEquals("1 минуту", TimeUnits.MINUTE.plural(1))
         assertEquals("2 минуты", TimeUnits.MINUTE.plural(2))
         assertEquals("5 минут", TimeUnits.MINUTE.plural(5))
         assertEquals("11 минут", TimeUnits.MINUTE.plural(11))
-        assertEquals("21 минута", TimeUnits.MINUTE.plural(21))
+        assertEquals("21 минуту", TimeUnits.MINUTE.plural(21))
         assertEquals("22 минуты", TimeUnits.MINUTE.plural(22))
 
         assertEquals("1 час", TimeUnits.HOUR.plural(1))
@@ -248,8 +248,15 @@ class ExampleUnitTest {
     fun test_truncate(){
         println("Bender Bending Rodriguez — дословно «Сгибальщик Сгибающий Родригес»".truncate())
         println("Bender Bending Rodriguez — дословно «Сгибальщик Сгибающий Родригес»".truncate(14))
+        println("A     ".truncate(3))
+        println("A      hello world".truncate(3))
+    }
+
+    @Test
+    fun test_stripHtml(){
+        println("\"<p class=\"title\">Образовательное IT-сообщество Skill Branch</p>\"".stripHtml())
+        println("\"<p>Образовательное       IT-сообщество Skill Branch</p>\"".stripHtml())
     }
 }
-
 
 //&amp;|&lt;|&gt;|&#39;|&quot; - это escape последовательности для html символов
