@@ -10,3 +10,5 @@ fun Activity.hideKeyboard(){
     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(iv_send.windowToken, 0)
 }
+
+

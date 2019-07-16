@@ -1,27 +1,22 @@
 package ru.skillbranch.devintensive
 
-import android.app.Dialog
-import android.app.PendingIntent.getActivity
-import android.drm.DrmStore
 import android.graphics.Color
 import android.graphics.PorterDuff
-import android.media.Image
-import android.media.session.PlaybackState
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.text.InputType
 import android.util.Log
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.View
+import android.view.inputmethod.EditorInfo.IME_ACTION_DONE
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.skillbranch.devintensive.extensions.hideKeyboard
 import ru.skillbranch.devintensive.models.Bender
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEditorActionListener {
     lateinit var benderImage: ImageView
     lateinit var textTxt: TextView
     lateinit var messageEt: EditText
@@ -48,6 +43,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         benderImage.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)
         textTxt.text = benderObj.askQuestion()
         sendBtn.setOnClickListener(this)
+        messageEt.setOnEditorActionListener(this)
 
     }
 
@@ -88,6 +84,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         Log.d("M_MainActivity","onSaveInstanceState ${benderObj.status.name} ${benderObj.question.name}")
     }
 
+    override fun onEditorAction(tV: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+        return if (actionId == IME_ACTION_DONE) {
+            val (phrase, color) = benderObj.listenAnswer(messageEt.text.toString().toLowerCase())
+            Log.d("M_MainActivity","Отправленное сообщение = ${messageEt.text}")
+            messageEt.setText("")
+            val (r,g,b) = color
+            benderImage.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)
+            textTxt.text = phrase
+            hideKeyboard()
+            true
+        }else{
+            false
+        }
+    }
 
     override fun onClick(v: View?) {
         if (v?.id == R.id.iv_send) {
@@ -96,7 +106,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             val (r,g,b) = color
             benderImage.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)
             textTxt.text = phrase
-            hideKeyboard()
         }
     }
 }
+
