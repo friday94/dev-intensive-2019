@@ -21,7 +21,6 @@ fun String.stripHtml():String{
     stringBuffer = stringBuffer.replace("&gt;","")
     stringBuffer = stringBuffer.replace("&#39;","")
     stringBuffer = stringBuffer.replace("&quot;","")
-//    stringBuffer = stringBuffer.replace("\\s+".toRegex()," ")
     while (stringBuffer.contains("  ")){
         stringBuffer = stringBuffer.replace("  "," ")
     }

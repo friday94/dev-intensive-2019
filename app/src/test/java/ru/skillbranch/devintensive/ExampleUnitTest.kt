@@ -284,6 +284,14 @@ class ExampleUnitTest {
         """.trimIndent()
         assertEquals(" line1 \n line2\n\nline3", longHtml.stripHtml())
     }
+
+    @Test
+    fun test_benderObj(){
+        val benderObj = Bender()
+        println(benderObj.listenAnswer("Bender"))
+        println(benderObj.listenAnswer("Bender"))
+        println(benderObj.listenAnswer("2716057"))
+    }
 }
 
 //&amp;|&lt;|&gt;|&#39;|&quot; - это escape последовательности для html символов
