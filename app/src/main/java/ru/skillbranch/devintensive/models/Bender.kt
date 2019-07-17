@@ -26,11 +26,11 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
             } else {
                 if (status.nextStatus() != Status.NORMAL) {
                     status = status.nextStatus()
-                    messageAnswer = "Это не правильный ответ\n${question.question}"
+                    messageAnswer = "Это неправильный ответ\n${question.question}"
                 } else {
                     status = status.nextStatus()
                     question = Question.NAME
-                    messageAnswer = "Это не правильный ответ. Давай все по новой\n${question.question}"
+                    messageAnswer = "Это неправильный ответ. Давай все по новой\n${question.question}"
                 }
             }
         } else messageAnswer = question.validQuestion(answer) + "\n${question.question}"
