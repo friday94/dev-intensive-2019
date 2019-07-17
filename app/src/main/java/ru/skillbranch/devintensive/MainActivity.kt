@@ -3,7 +3,6 @@ package ru.skillbranch.devintensive
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.text.InputType
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View

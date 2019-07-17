@@ -16,9 +16,13 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     fun listenAnswer(answer: String): Pair<String, Triple<Int, Int, Int>> {
         val messageAnswer: String
         if (question.validQuestion(answer) == "") {
-            if ((question.answer.contains(answer.toLowerCase())) || (question==Question.IDLE) && (answer == "")) {
-                question = question.nextQuestion()
-                messageAnswer = "Отлично - ты справился\n${question.question}"
+            if ((question.answer.contains(answer.toLowerCase())) || (question==Question.IDLE) && (question.validQuestion(answer) == "")) {
+                if (question != Question.IDLE) {
+                    question = question.nextQuestion()
+                    messageAnswer = "Отлично - ты справился\n${question.question}"
+                }else{
+                    messageAnswer = "На этом все, вопросов больше нет"
+                }
             } else {
                 if (status.nextStatus() != Status.NORMAL) {
                     status = status.nextStatus()
