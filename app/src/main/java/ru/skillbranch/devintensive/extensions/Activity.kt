@@ -12,7 +12,7 @@ fun Activity.hideKeyboard(){
     imm.hideSoftInputFromWindow(iv_send.windowToken, 0)
 }
 
-fun Activity.isKeyBoardOpen():Boolean {
+fun Activity.isKeyboardOpen():Boolean {
     val rect = Rect()
     main_activity.getWindowVisibleDisplayFrame(rect)
     val screenHeight = main_activity.rootView.height
@@ -20,7 +20,7 @@ fun Activity.isKeyBoardOpen():Boolean {
     return keypadHeight > screenHeight*0.15
 }
 
-fun Activity.isKeyBoardClose():Boolean {
+fun Activity.isKeyboardClosed():Boolean {
     val rect = Rect()
     main_activity.getWindowVisibleDisplayFrame(rect)
     val screenHeight = main_activity.rootView.height
