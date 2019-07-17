@@ -1,5 +1,6 @@
 package ru.skillbranch.devintensive
 
+import android.app.Activity
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -291,6 +292,11 @@ class ExampleUnitTest {
         println(benderObj.listenAnswer("Bender"))
         println(benderObj.listenAnswer("Bender"))
         println(benderObj.listenAnswer("2716057"))
+    }
+
+    @Test
+    fun test_keyboard_open(){
+
     }
 }
 

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.text.InputType
 import android.util.Log
 import android.view.KeyEvent
-import android.view.KeyEvent.KEYCODE_ENTER
 import android.view.View
 import android.view.inputmethod.EditorInfo.IME_ACTION_DONE
 import android.widget.EditText
@@ -23,12 +22,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
     lateinit var messageEt: EditText
     lateinit var sendBtn: ImageView
 
+
     lateinit var benderObj: Bender
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         benderImage = iv_bender
         textTxt = tv_text
         messageEt = et_message
@@ -45,8 +46,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
         textTxt.text = benderObj.askQuestion()
         sendBtn.setOnClickListener(this)
         messageEt.setOnEditorActionListener(this)
-        messageEt.setRawInputType(InputType.TYPE_CLASS_TEXT)
-
     }
 
     override fun onRestart() {
@@ -88,7 +87,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
 
     override fun onEditorAction(tV: TextView?, actionId: Int, event: KeyEvent?): Boolean {
         return if (actionId == IME_ACTION_DONE) {
-            val (phrase, color) = benderObj.listenAnswer(messageEt.text.toString().toLowerCase())
+            val (phrase, color) = benderObj.listenAnswer(messageEt.text.toString())
             Log.d("M_MainActivity","Отправленное сообщение = ${messageEt.text}")
             messageEt.setText("")
             val (r,g,b) = color
@@ -108,6 +107,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
             val (r,g,b) = color
             benderImage.setColorFilter(Color.rgb(r,g,b), PorterDuff.Mode.MULTIPLY)
             textTxt.text = phrase
+            hideKeyboard()
         }
     }
 }
